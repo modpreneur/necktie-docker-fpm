@@ -39,11 +39,17 @@ COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY docker/supervisor-manager.sh /opt/supervisor-manager.sh
 
 
-#php-fpm lisen on port 9001 becase of xdebux
+#php-fpm listen on port 9001 becase of xdebux
 RUN echo "listen = [::]:9001" >> /usr/local/etc/php-fpm.conf
 
 
 WORKDIR /var/app
 
-#todo smazat g++ autoconf make a další věci co tu nepotřebuju
-#dát sem uložení verze do soubory
+#RUN apk del \
+#    g++ \
+#    autoconf \
+#    make \
+#    wget \
+#    && rm -rf /var/cache/apk/*
+
+RUN echo "modpreneur/necktie-fpm:0.1" >> /home/versions
