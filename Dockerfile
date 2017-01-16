@@ -35,9 +35,6 @@ RUN curl -sS https://getcomposer.org/installer | php \
     && echo "memory_limit = 2048M" >> /usr/local/etc/php/php.ini
 
 
-COPY docker/supervisor-manager.sh /opt/supervisor-manager.sh
-
-
 #php-fpm listen on port 9001 becase of xdebux
 RUN echo "listen = [::]:9001" >> /usr/local/etc/php-fpm.conf
 
