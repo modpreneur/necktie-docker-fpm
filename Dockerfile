@@ -35,8 +35,8 @@ RUN curl -sS https://getcomposer.org/installer | php \
     && echo "memory_limit = 2048M" >> /usr/local/etc/php/php.ini
 
 
-#php-fpm listen on port 9001 becase of xdebux
-RUN echo "listen = [::]:9001" >> /usr/local/etc/php-fpm.conf
+#php-fpm listen on port 9090 becase of xdebux use port 9000 and supervisor use port 9001 and 9002
+RUN echo "listen = [::]:9090" >> /usr/local/etc/php-fpm.conf
 
 
 WORKDIR /var/app
@@ -48,4 +48,4 @@ WORKDIR /var/app
 #    wget \
 #    && rm -rf /var/cache/apk/*
 
-RUN echo "modpreneur/necktie-fpm:0.1" >> /home/versions
+RUN echo "modpreneur/necktie-fpm:0.2" >> /home/versions
