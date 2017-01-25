@@ -15,6 +15,8 @@ RUN apk add --update \
     bzip2-dev \
     wget \
     libmcrypt-dev \
+    #for git
+    openssh \
     supervisor\
     #for pecl
     g++ \
@@ -25,7 +27,7 @@ RUN apk add --update \
 RUN docker-php-ext-configure bcmath \
     && docker-php-ext-install curl json mbstring opcache zip bz2 mcrypt pdo_mysql pdo_pgsql bcmath
 
-RUN pecl install -o -f apcu-5.1.7 apcu_bc-beta \
+RUN pecl install -o -f apcu-5.1.8 apcu_bc-beta \
     && echo "extension=apcu.so" > /usr/local/etc/php/conf.d/apcu.ini \
     && echo "extension=apc.so" >> /usr/local/etc/php/conf.d/apcu.ini
 
@@ -48,4 +50,4 @@ WORKDIR /var/app
 #    wget \
 #    && rm -rf /var/cache/apk/*
 
-RUN echo "modpreneur/necktie-fpm:0.2" >> /home/versions
+RUN echo "modpreneur/necktie-fpm:0.3" >> /home/versions
