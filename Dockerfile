@@ -15,8 +15,6 @@ RUN apk add --update \
     bzip2-dev \
     wget \
     libmcrypt-dev \
-    #for git
-    openssh \
     supervisor\
     #for pecl
     g++ \
@@ -50,4 +48,4 @@ WORKDIR /var/app
 #    wget \
 #    && rm -rf /var/cache/apk/*
 
-RUN echo "modpreneur/necktie-fpm:0.3" >> /home/versions
+RUN echo "modpreneur/necktie-fpm:0.4" >> /home/versions
