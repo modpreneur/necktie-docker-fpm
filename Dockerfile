@@ -2,8 +2,9 @@ FROM php:7.1-fpm-alpine
 
 MAINTAINER Martin Kolek <kolek@modpreneur.com>
 
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/v3.5/main" > /etc/apk/repositories \
-    && echo "http://dl-cdn.alpinelinux.org/alpine/v3.5/community" >> /etc/apk/repositories
+#git from alpine 3.5 have issue
+#RUN echo "http://dl-cdn.alpinelinux.org/alpine/v3.5/main" > /etc/apk/repositories \
+#    && echo "http://dl-cdn.alpinelinux.org/alpine/v3.5/community" >> /etc/apk/repositories
 
 
 RUN apk add --update \
@@ -51,4 +52,4 @@ WORKDIR /var/app
 #    wget \
 #    && rm -rf /var/cache/apk/*
 
-RUN echo "modpreneur/necktie-fpm:0.5" >> /home/versions
+RUN echo "modpreneur/necktie-fpm:0.6" >> /home/versions
