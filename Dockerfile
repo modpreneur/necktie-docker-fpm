@@ -6,7 +6,6 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/v3.5/main" > /etc/apk/repositorie
     && echo "http://dl-cdn.alpinelinux.org/alpine/v3.5/community" >> /etc/apk/repositories
 
 
-# install packages, apcu, bcmath for rabbit, composer with plugin for paraller install, clean apache sites
 RUN apk add --update \
     curl-dev \
     git \
@@ -19,15 +18,19 @@ RUN apk add --update \
     #for pecl
     g++ \
     autoconf \
-    make
+    make \
+    #for gd extension
+    libpng-dev
 
 
 RUN docker-php-ext-configure bcmath \
-    && docker-php-ext-install curl json mbstring opcache zip bz2 mcrypt pdo_mysql pdo_pgsql bcmath
+    && docker-php-ext-install curl json mbstring opcache zip bz2 mcrypt pdo_mysql pdo_pgsql bcmath gd
+
 
 RUN pecl install -o -f apcu-5.1.8 apcu_bc-beta \
     && echo "extension=apcu.so" > /usr/local/etc/php/conf.d/apcu.ini \
     && echo "extension=apc.so" >> /usr/local/etc/php/conf.d/apcu.ini
+
 
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/bin/composer \
@@ -48,4 +51,4 @@ WORKDIR /var/app
 #    wget \
 #    && rm -rf /var/cache/apk/*
 
-RUN echo "modpreneur/necktie-fpm:0.4" >> /home/versions
+RUN echo "modpreneur/necktie-fpm:0.5" >> /home/versions
