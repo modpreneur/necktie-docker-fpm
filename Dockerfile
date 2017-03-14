@@ -21,7 +21,9 @@ RUN apk add --update \
     autoconf \
     make \
     #for gd extension
-    libpng-dev
+    libpng-dev \
+    #cron
+    busybox-suid
 
 
 RUN docker-php-ext-configure bcmath \
@@ -43,6 +45,13 @@ RUN curl -sS https://getcomposer.org/installer | php \
 RUN echo "listen = [::]:9090" >> /usr/local/etc/php-fpm.conf
 
 
+# cron
+RUN rm -rf /etc/crontabs/www-data \
+&& cp /etc/crontabs/root /etc/crontabs/www-data \
+&& truncate /etc/crontabs/www-data -s 0
+
+
+
 WORKDIR /var/app
 
 #RUN apk del \
@@ -52,4 +61,6 @@ WORKDIR /var/app
 #    wget \
 #    && rm -rf /var/cache/apk/*
 
-RUN echo "modpreneur/necktie-fpm:0.6" >> /home/versions
+
+
+RUN echo "modpreneur/necktie-fpm:0.7" >> /home/versions
