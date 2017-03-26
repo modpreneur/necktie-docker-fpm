@@ -22,9 +22,10 @@ RUN apk add --update \
     make \
     #for gd extension
     libpng-dev \
+    libjpeg-turbo-dev \
+    freetype-dev \
     #cron
     busybox-suid
-
 
 RUN docker-php-ext-configure bcmath \
     && docker-php-ext-install curl json mbstring opcache zip bz2 mcrypt pdo_mysql pdo_pgsql bcmath gd
@@ -63,4 +64,4 @@ WORKDIR /var/app
 
 
 
-RUN echo "modpreneur/necktie-fpm:0.7" >> /home/versions
+RUN echo "modpreneur/necktie-fpm:0.8" >> /home/versions
