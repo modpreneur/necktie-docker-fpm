@@ -27,18 +27,25 @@ RUN apk add --update \
     #cron
     busybox-suid
 
+RUN docker-php-ext-configure gd \
+    --with-gd \
+    --with-freetype-dir=/usr/include/ \
+    --with-png-dir=/usr/include/ \
+    --with-jpeg-dir=/usr/include/
+
 RUN docker-php-ext-configure bcmath \
     && docker-php-ext-install curl json mbstring opcache zip bz2 mcrypt pdo_mysql pdo_pgsql bcmath gd
 
 
 RUN pecl install -o -f apcu-5.1.8 apcu_bc-beta \
     && echo "extension=apcu.so" > /usr/local/etc/php/conf.d/apcu.ini \
-    && echo "extension=apc.so" >> /usr/local/etc/php/conf.d/apcu.ini
+    && echo "extension=apc.so" >> /usr/local/etc/php/conf.d/apcu.ini \
+    && echo "apc.enabled=1" >> /usr/local/etc/php/php.ini \
+    && echo "apc.enable_cli=1" >> /usr/local/etc/php/php.ini
 
 
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/bin/composer \
-    && touch /usr/local/etc/php/php.ini \
     && echo "memory_limit = 2048M" >> /usr/local/etc/php/php.ini
 
 
@@ -64,4 +71,4 @@ WORKDIR /var/app
 
 
 
-RUN echo "modpreneur/necktie-fpm:0.8" >> /home/versions
+RUN echo "modpreneur/necktie-fpm:0.9" >> /home/versions
