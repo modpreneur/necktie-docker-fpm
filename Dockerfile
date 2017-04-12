@@ -41,8 +41,10 @@ RUN pecl install -o -f apcu-5.1.8 apcu_bc-beta \
     && echo "extension=apcu.so" > /usr/local/etc/php/conf.d/apcu.ini \
     && echo "extension=apc.so" >> /usr/local/etc/php/conf.d/apcu.ini \
     && echo "apc.enabled=1" >> /usr/local/etc/php/php.ini \
-    && echo "apc.enable_cli=1" >> /usr/local/etc/php/php.ini
-
+    && echo "apc.enable_cli=1" >> /usr/local/etc/php/php.ini \
+    && echo "opcache.max_accelerated_files = 20000" >> /usr/local/etc/php/php.ini \
+    && echo "realpath_cache_size=4096K" >> /usr/local/etc/php/php.ini \
+    && echo "realpath_cache_ttl=600" >> /usr/local/etc/php/php.ini
 
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/bin/composer \
@@ -71,4 +73,4 @@ WORKDIR /var/app
 
 
 
-RUN echo "modpreneur/necktie-fpm:0.9" >> /home/versions
+RUN echo "modpreneur/necktie-fpm:0.10" >> /home/versions
