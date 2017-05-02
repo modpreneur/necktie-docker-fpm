@@ -72,5 +72,4 @@ WORKDIR /var/app
 #    && rm -rf /var/cache/apk/*
 
 
-
-RUN echo "modpreneur/necktie-fpm:0.10" >> /home/versions
+RUN echo "modpreneur/necktie-fpm:0.11" >> /home/versions
