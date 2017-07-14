@@ -2,7 +2,6 @@ FROM php:7.1-fpm-alpine
 
 MAINTAINER Martin Kolek <kolek@modpreneur.com>
 
-#git from alpine 3.5 have issue
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/v3.6/main" > /etc/apk/repositories \
     && echo "http://dl-cdn.alpinelinux.org/alpine/v3.6/community" >> /etc/apk/repositories
 
@@ -76,4 +75,4 @@ WORKDIR /var/app
 #    && rm -rf /var/cache/apk/*
 
 
-RUN echo "modpreneur/necktie-fpm:0.12" >> /home/versions
+RUN echo "modpreneur/necktie-fpm:0.13" >> /home/versions
