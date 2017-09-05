@@ -28,7 +28,9 @@ RUN apk add --update \
     #cron
     busybox-suid \
     ##
-    pcre-dev
+    pcre-dev \
+    ##for soap
+    libxml2-dev
 
 RUN docker-php-ext-configure gd \
     --with-gd \
@@ -37,7 +39,7 @@ RUN docker-php-ext-configure gd \
     --with-jpeg-dir=/usr/include/
 
 RUN docker-php-ext-configure bcmath \
-    && docker-php-ext-install curl json mbstring opcache zip bz2 mcrypt pdo_mysql pdo_pgsql bcmath gd
+    && docker-php-ext-install curl json mbstring opcache zip bz2 mcrypt pdo_mysql pdo_pgsql bcmath gd soap
 
 
 RUN pecl install -o -f apcu-5.1.8 apcu_bc-beta \
