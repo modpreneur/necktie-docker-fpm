@@ -30,7 +30,8 @@ RUN apk add --update \
     ##
     pcre-dev \
     ##for soap
-    libxml2-dev
+    libxml2-dev \
+    imap-dev
 
 RUN docker-php-ext-configure gd \
     --with-gd \
@@ -39,7 +40,7 @@ RUN docker-php-ext-configure gd \
     --with-jpeg-dir=/usr/include/
 
 RUN docker-php-ext-configure bcmath \
-    && docker-php-ext-install curl json mbstring opcache zip bz2 mcrypt pdo_mysql pdo_pgsql bcmath gd soap
+    && docker-php-ext-install curl json mbstring opcache zip bz2 mcrypt pdo_mysql pdo_pgsql bcmath gd soap imap
 
 
 RUN pecl install -o -f apcu-5.1.8 apcu_bc-beta \
@@ -77,4 +78,4 @@ WORKDIR /var/app
 #    && rm -rf /var/cache/apk/*
 
 
-RUN echo "modpreneur/necktie-fpm:0.15" >> /home/versions
+RUN echo "modpreneur/necktie-fpm:0.16" >> /home/versions
