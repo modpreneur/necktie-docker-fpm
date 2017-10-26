@@ -19,29 +19,17 @@ RUN apk add --update \
     g++ \
     autoconf \
     make \
-    ##
     #for gd extension
     libpng-dev \
     libjpeg-turbo-dev \
     freetype-dev \
-    ##
     #cron
     busybox-suid \
-    ##
     pcre-dev \
     ##for soap
     libxml2-dev \
+    ##for imap
     imap-dev
-
-RUN docker-php-ext-configure gd \
-    --with-gd \
-    --with-freetype-dir=/usr/include/ \
-    --with-png-dir=/usr/include/ \
-    --with-jpeg-dir=/usr/include/
-
-RUN docker-php-ext-configure bcmath \
-    && docker-php-ext-install curl json mbstring opcache zip bz2 mcrypt pdo_mysql pdo_pgsql bcmath gd soap imap
-
 
 RUN pecl install -o -f apcu-5.1.8 apcu_bc-beta \
     && echo "extension=apcu.so" > /usr/local/etc/php/conf.d/apcu.ini \
@@ -51,6 +39,18 @@ RUN pecl install -o -f apcu-5.1.8 apcu_bc-beta \
     && echo "opcache.max_accelerated_files = 20000" >> /usr/local/etc/php/php.ini \
     && echo "realpath_cache_size=4096K" >> /usr/local/etc/php/php.ini \
     && echo "realpath_cache_ttl=600" >> /usr/local/etc/php/php.ini
+
+RUN docker-php-ext-install curl json mbstring opcache zip bz2 mcrypt pdo_mysql pdo_pgsql bcmath gd soap imap
+
+RUN docker-php-ext-configure gd \
+    --with-gd \
+    --with-freetype-dir=/usr/include/ \
+    --with-png-dir=/usr/include/ \
+    --with-jpeg-dir=/usr/include/
+
+RUN docker-php-ext-configure imap --with-imap --with-imap-ssl
+
+RUN docker-php-ext-configure bcmath
 
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/bin/composer \
