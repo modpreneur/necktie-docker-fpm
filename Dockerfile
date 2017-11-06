@@ -67,7 +67,6 @@ RUN rm -rf /etc/crontabs/www-data \
 && truncate /etc/crontabs/www-data -s 0
 
 
-
 WORKDIR /var/app
 
 #RUN apk del \
@@ -78,4 +77,4 @@ WORKDIR /var/app
 #    && rm -rf /var/cache/apk/*
 
 
-RUN echo "modpreneur/necktie-fpm:0.16" >> /home/versions
+RUN echo "modpreneur/necktie-fpm:0.17" >> /home/versions
